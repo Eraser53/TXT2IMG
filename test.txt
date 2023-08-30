@@ -1,0 +1,158 @@
+
+
+Carbon, a 1 Hz redstone CPU (10t)
+Whiskers
+OP
+  26/12/2022 17:57
+A 1 Hz(10 tick clock) 8-bit Redstone CPU was designed and is being worked on by me. I took the name carbon from the actual element ?? 4 stages pipelined with 8 IO ports, 7 general purpose registers, 32 bytes of ram, 32 bytes of iCache, and ALU that can do all functions. Carbon comes with a barrel shifter as well designed by Qsmally. Carbon has 26 instructions, 7 conditions, and 3 flags(0, COUT, MSB). Forgot to mention that Carbon is insanely compact, it is 108 blocks in length, and 4JUdGzvrMFDWrUUwY36EkRHLyviZMtSjodB4gByQJwyYxPmBE1xxRL2gjkNrSqtCoRUrEDAgRwsQvVCjZbRyFTLRNyDmT1a1boZVEngineers) Which is where I am working on Carbon, I just wanted to share my little project with another Redstone community that is here. I made a teaser video about it: https://www.youtube.com/watch?v=00HOfP0ywn4 
+YouTube
+Whiskers
+Carbon - A Minecraft CPU (Teaser)
+Image
+Whiskers
+OP
+  26/12/2022 17:59
+Here's the dataloop
+Image
+Carbon is a pure harvard architectural design
+acc based (Accumulator based)
+Red: Instruction decoders
+Green: Immediate bus that saves into registers
+Image
+Yellow: 8 IO ports which their logic is done (Acknowledge and Request)
+Purple: 32 bytes of ram connected to the bus of the ACC.
+Image
+Blue: PROM(Program ROM) 32 bytes which send in serial hex to the icache
+Black: Icache(Instruction Cache) 32 bytes which receives serial hex from the prom and decodes it with a hex to binary decoder by Qsmally and gets saved into the cache.
+Image
+Whiskers
+OP
+  26/12/2022 18:06
+Side-view of Carbon
+Image
+Underneath view of Carbon
+Image
+Matt  26/12/2022 18:51
+awesome!! :D
+i love how compact it is
+Whiskers
+OP
+  26/12/2022 18:55
+ty
+Deleted User  26/12/2022 21:14
+i dont even understand how people make these things
+this is insane
+Whiskers
+OP
+  26/12/2022 21:18
+Time and effort my guy
+Whiskers
+OP
+  26/12/2022 21:20
+Thanks!
+Whiskers
+OP
+  30/12/2022 11:35
+right now I'm working on LDI (Load Immediate) which is just pipelining it, it also has to disable every instruction while the immediate is loading in execute stage, then it can finally save in writeback in registers. This is probably the hardest instruction yet.
+I have 5 stages in mind while building CPUs
+stage 1: building all components + pipelining their inputs and outputs to other components and busses
+stage 2: wiring all of the instructions to the components / control wires
+stage 3: pipelining stage 2 and some other stuff
+stage 4: running and debugging
+stage 5: publishing
+For Carbon, I am now on stage 3
+Stage 3:
+Update: 9
+.HLT
+.ADD
+.SUB
+.BSUB
+.OR
+.NOR
+.AND
+.NAND
+.XOR
+.XNOR
+
+'LDI'
+
+ADR
+AST
+ALD
+MPS
+MPL
+ICS
+JID
+BRC
+JMP
+CMP
+BSR
+BSL
+PST
+
+.PLD
+
+11/25
+Piped:
+.Instructions
+
+Saved for later:
+'Instructions'
+
+Not Piped:
+Instructions
+ 
+These are my 25 instructions in carbon
+okay back to work
+Whiskers
+OP
+  30/12/2022 12:11
+ok so LDI is being a pain in the ass so im gonna save it for later
+Whiskers
+OP
+  30/12/2022 19:49
+ISA:
+https://docs.google.com/spreadsheets/d/1_FepOi0h62jBviLYoQEvR1JF8cmSw8pK11EYx6oMhGk/edit?usp=sharing
+Google Docs
+Carbon overview
+Sheet1
+
+Opcode,16,8,4,2,1,Mnemonics,Operand,CONDITIONS,4,2,1,Mnemonics
+11111 HLT,Halt,X,X [Nothing],X [Nothing]
+00001 ADD,Add,ACC,0,Zero
+00010 SUB,Subtract,ACC,!0,Invert Zero
+00011 BSUB,Backwards Subtraction,ACC,MSB,Most SIgnificant Bit
+00100 OR,Bitwise OR,ACC,!MSB,Invert Most SIgnificant Bit
+001...
+Image
+Giannisbliz  30/12/2022 21:07
+intel calling 
+_Ic1011_  30/12/2022 21:53
+AMD is calling...
+Whiskers
+OP
+  31/12/2022 17:02
+progress...
+Image
+Wa1kingR3dston3  01/01/2023 15:33
+What does your ram design look like 32 bytes is a good amount!!
+Whiskers
+OP
+  02/01/2023 00:14
+Here it is
+Wa1kingR3dston3  02/01/2023 00:37
+Thats tiny??
+Whiskers
+OP
+  02/01/2023 18:16
+yuh
+ok so update
+MLD (Memory Load) Which loads from ram and saves to the accumulator
+will stall for a couple of ticks
+due to some speed issues
+Whiskers
+OP
+  03/01/2023 12:15
+clear top view for the people wondering what it looks like
+Image
+so far MLD is done
