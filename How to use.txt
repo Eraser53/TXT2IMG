@@ -1,0 +1,10 @@
+Step 1:Type something in test.txt
+Step 2:Run encode.py(If it closes automatically it's fine. Just check if an image is created or changed.)
+decode.py:
+Running it will decode it back to text( don't rename test.txt)
+
+Libraries:
+Pillow
+
+If you don't know how to install it:
+pip install pillow
